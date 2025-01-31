@@ -6,5 +6,9 @@
 //       equipment: `Dumbbell`,
 
 //     },
+//     {
+//         equipment: `Jump Rope`,
+  
+//     },
 //   ]);
 // };
