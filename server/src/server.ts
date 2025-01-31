@@ -1,4 +1,4 @@
-const forceDatabaseRefresh = true;  // Flag to control whether to force a database refresh on server start
+const forceDatabaseRefresh = false;  // Flag to control whether to force a database refresh on server start
 
 import express from 'express';
 import sequelize from './config/connection.js'; // Import the initialized Sequelize instance
