@@ -1,11 +1,10 @@
-import { Equipment } from '../models/index.js';
+// import { Equipment } from '../models/index.js';
 
-export const seedEquipment = async () => {
-  await Equipment.bulkCreate([
-    {
-      muscleGroup: `Bicep`,
-      name: `Dumbell Curl`,
+// export const seedEquipment = async () => {
+//   await Equipment.bulkCreate([
+//     {
+//       equipment: `Dumbbell`,
 
-    },
-  ]);
-};
+//     },
+//   ]);
+// };

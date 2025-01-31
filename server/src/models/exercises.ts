@@ -1,36 +1,40 @@
-import { DataTypes, Sequelize, Model, Optional } from 'sequelize';
+import { DataTypes, Sequelize, Model, InferAttributes, InferCreationAttributes, CreationOptional } from 'sequelize';
 
 
-interface ExerciseAttributes {
-    workout_id: number;
-    muscleGroup: string;
-    name: string;
-    reps_sets: string;
-    user_id: number;
-    equipment_id: number;
-}
+// interface ExerciseAttributes {
+//     id: number;
+//     muscleGroup: string;
+//     name: string;
+//     reps_sets: string;
+    
+// }
 
 
-interface ExerciseCreationAttributes extends Optional<ExerciseAttributes, 'workout_id'> { }
+// interface ExerciseCreationAttributes extends Optional<ExerciseAttributes, 'id'> { }
 
 
-export class Exercises extends Model<ExerciseAttributes, ExerciseCreationAttributes> implements ExerciseAttributes {
-    public workout_id!: number;
-    public muscleGroup!: string;
-    public name!: string;
-    public reps_sets!: string;
-    public user_id!: number;
-    public equipment_id!: number;
+// export class Exercises extends Model<ExerciseAttributes, ExerciseCreationAttributes> implements ExerciseAttributes {
+//     public id!: number;
+//     public muscleGroup!: string;
+//     public name!: string;
+//     public reps_sets!: string;
+    
 
-    public readonly createdAt!: Date;
-    public readonly updatedAt!: Date;
+   
+// }
+
+export class Exercises extends Model<InferAttributes<Exercises>, InferCreationAttributes<Exercises>> {
+    declare id: CreationOptional<number>;
+    declare muscleGroup: string;
+    declare name: string;
+    declare repSets: string;
 }
 
 
 export function ExerciseFactory(sequelize: Sequelize): typeof Exercises {
     Exercises.init(
         {
-            workout_id: {
+            id: {
                 type: DataTypes.INTEGER,
                 autoIncrement: true,  
                 primaryKey: true,     
@@ -44,23 +48,18 @@ export function ExerciseFactory(sequelize: Sequelize): typeof Exercises {
                 allowNull: true,      
               
             },
-            reps_sets: {
+            repSets: {
                 type: DataTypes.TEXT,
                 allowNull: false,     
-            },
-            user_id: {
-                type: DataTypes.INTEGER,
-                allowNull: true,     
-            },
-            equipment_id: {
-                type: DataTypes.INTEGER,
-                allowNull: true,     
             },
 
         },
         {
-            tableName: 'exercises',  
-            sequelize,               
+            modelName: 'exercises',  
+            tableName: 'exercises',
+            sequelize,        
+            underscored: true,
+            timestamps: false,       
         }
     );
 

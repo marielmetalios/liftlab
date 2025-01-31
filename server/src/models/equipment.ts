@@ -1,49 +1,52 @@
-import { DataTypes, Sequelize, Model, Optional } from 'sequelize';
+import { DataTypes, Sequelize, InferAttributes, InferCreationAttributes, Model, CreationOptional, ForeignKey } from 'sequelize';
+import { Exercises } from './exercises';
 
 
-interface EquipmentAttributes {
-    equipment_id: number;
-    location: string;
-    Equipment: string;
+// interface EquipmentAttributes {
+//     id: number;
+//     equipment: string;
+//     exercise_id: number;
     
-}
+// }
 
 
-interface EquipmentCreationAttributes extends Optional<EquipmentAttributes, 'equipment_id'> { }
+// interface EquipmentCreationAttributes extends Optional<EquipmentAttributes, 'id'> { }
 
 
-export class Equipment extends Model<EquipmentAttributes, EquipmentCreationAttributes> implements EquipmentAttributes {
-    public equipment_id!: number;
-    public location!: string;
-    public Equipment!: string;
+// export class Equipment extends Model<EquipmentAttributes, EquipmentCreationAttributes> implements EquipmentAttributes {
+//     public id!: number;
+//     public equipment!: string;
+//     public exercise_id!: ForeignKey<Exercises[`id`]>;
 
+    
+// }
 
-    public readonly createdAt!: Date;
-    public readonly updatedAt!: Date;
+export class Equipment extends Model<InferAttributes<Equipment>, InferCreationAttributes<Equipment>> {
+    declare id: CreationOptional<number>;
+    declare exercise_id: ForeignKey<Exercises['id']>; 
+    declare equipment: string;
 }
 
 
 export function EquipmentFactory(sequelize: Sequelize): typeof Equipment {
     Equipment.init(
         {
-            equipment_id: {
+            id: {
                 type: DataTypes.INTEGER,
                 autoIncrement: true,  
                 primaryKey: true,     
             },
-            location: {
-                type: DataTypes.STRING,
-                allowNull: false,  
-            },
-            Equipment: {
+            equipment: {
                 type: DataTypes.STRING,
                 allowNull: true,      
-                
             },
-          
+            
         },
         {
             tableName: 'equipment',  
+            modelName: 'equipment',
+            underscored: true,
+            timestamps: false,
             sequelize,              
         }
     );
