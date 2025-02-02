@@ -1,19 +1,18 @@
 // need to fix 
 // import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+// import { Link } from 'react-router-dom';
 
 const Navbar = () => {
     return (
         <section className = "navbar navbar-expand-lg text-light bg-dark fixed-top" role="navigation" >
-            <header className = "container-fluid">
-                <div >
-                    <h1 className = "navbar-brand text-light">LiftLab</h1>
-                        <p className = "navbar-toggler"> Testing
-                        </p>
-                    <span className= "d-flex navbar-nav me-auto"> Login </span>
-                    <span className="navbar-nav me-auto"> Home </span>
-                </div>
+            <header className = "container-fluid d-flex align-items-center justify-content-between">
+                    <h1 className = "navbar text-light">LiftLab</h1>
+                    <div className="d-flex ms-auto ">
+                        {/* <Link to = "/Home" className= "navbar-nav me-3">Login</Link> */}
+                    <span className= "navbar-nav me-3">Login</span>
+                    
+                     </div>
             </header>
         </section>
     )

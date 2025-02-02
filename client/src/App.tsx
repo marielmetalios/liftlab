@@ -1,6 +1,7 @@
 // import { useState } from 'react'
-import './App.css'
+import './App.css' 
 import Navbar from './components/navbar'
+// import { Outlet } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -10,7 +11,10 @@ function App() {
 return (
   <div>
     <Navbar />
-    <h1>Testing</h1>
+    <h1>Welcome to LiftLab</h1>
+    <h2>Ready to workout?</h2>
+    <p>Enter your email below to get started.</p>
+    {/* <Outlet /> */}
   </div>
 )
 }
