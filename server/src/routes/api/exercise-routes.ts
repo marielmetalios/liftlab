@@ -15,6 +15,23 @@ router.get('/', async (_req: Request, res: Response) => {
   }
 });
 
+// new route for specfic muscle groups:
+router.get('/:muscleGroup', async (_req: Request, res: Response) => {
+  try {
+    const { muscleGroup } = _req.params;
+    const exercises = await Exercises.findAll({
+      where: {
+        muscleGroup: muscleGroup
+      }
+    });
+    console.log(`Successfully filtered on ${muscleGroup}`);
+    res.status(200).json(exercises);
+  } catch(error) {
+    res.status(500).json({ error: "Internal Server Error"});
+  }
+});
+// end new route
+
 
 router.get('/:id', async (req: Request, res: Response) => {
   try {
