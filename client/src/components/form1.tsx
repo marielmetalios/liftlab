@@ -1,4 +1,5 @@
-import { useState, FormEvent, changeEvent} from "react";
+import React from "react";
+import { useState, FormEvent, ChangeEvent} from "react";
 
 // we'll useState and start it off as empty string --
 // setMuscleGroup allows muscleGroup state to be updated
@@ -12,9 +13,11 @@ const muscleGroupForm = () => {
 // new function to handle the HTML input change
 // the e.target will look at the HTML element that triggered event and assign it to a new const called "selectedGroup"
 // then we useState to update the setMuscleGroup TO that user's choice (i.e. "selectedGroup")
-const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const selectedGroup = e.target;
+// use HTML select element for users selection (not input here!)
+const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const selectedGroup = e.target.value;
     setMuscleGroup(selectedGroup);
+    fetchWorkouts(selectedGroup);
 };
 
 // now we need a function to actually fetch the workouts --
@@ -29,9 +32,10 @@ const fetchWorkouts = async (muscleGroup) = {
         const data = await response.json();
         setWorkouts(data);
     }
-    catch (error)
+    catch (error) {
     console.log(`Error getting data from table`)
-}
+    }
+};
 
 // if the user selects a group, fetch workouts on that selected group,
 // otherwise, clear workouts if they don't select a group
@@ -54,7 +58,7 @@ const handleSubmit = (e: FormEvent) => {
 return (
     <form onSubmit={handleSubmit}>
         <label>What muscle group do you want to workout today?</label>
-        <select id="muscleGroupName" value={muscleGroup} onChange = {handleChange}>
+        <select value = "" id="muscleGroupName" value={muscleGroup} onChange = {handleChange}>
             <option>Select from the below list</option>
             <option value="Arms">Arms</option>
             <option value="Leg">Legs</option>
@@ -63,19 +67,23 @@ return (
             <option value="Chest">Chest</option>
         </select>
         <button type="submit">Submit</button>
-
-{/* // and now we need the workouts to actually display on the page: */}
+    
     <div>
-        {workouts.length > 0 (
-        <h1>Your Workout Options:</h1>
-        <ul>
-            {workouts.map(workout => (
-                <li key={workout.id}>{workout.name}</li>
-            ))};
-        </ul>
+        {workouts.length > 0 && (
+            <div>
+                <h1>Your Workout Options:</h1>
+                <ul>
+                    {workouts.map(workout => (
+                        <li key={workout.id}>{workout.name}</li>
+                    ))}
+                </ul>
+            </div>
+        )}
     </div>
-));
     </form>
-)
+);
+
+{/*got the above return for workouts to actually display on the page from xpert -- dont fully understand ternary here? */}
+
 
 export default muscleGroupForm;
