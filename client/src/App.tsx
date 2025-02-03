@@ -1,23 +1,21 @@
 // import { useState } from 'react'
 import './App.css' 
 import Navbar from './components/navbar'
-// import { Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+// import MuscleGroupForm from './components/form1';
 
 function App() {
-  // const [count, setCount] = useState(0)
 
-// new code to replace below return:
 return (
   <div>
     <Navbar />
-    <h1>Welcome to LiftLab</h1>
-    <h2>Ready to workout?</h2>
-    <p>Enter your email below to get started.</p>
-    {/* <Outlet /> */}
+    <main>
+      <Outlet />
+      </main>
   </div>
-)
-}
+  );
+};
 
 export default App
 
