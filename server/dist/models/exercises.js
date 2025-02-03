@@ -30,7 +30,7 @@ export function ExerciseFactory(sequelize) {
             allowNull: true,
         },
         repSets: {
-            type: DataTypes.TEXT,
+            type: DataTypes.STRING,
             allowNull: false,
         },
     }, {
