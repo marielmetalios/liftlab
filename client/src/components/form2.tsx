@@ -1,4 +1,4 @@
-import React, { useState, FormEvent } from 'react';
+import { useState, FormEvent } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Form2() {
