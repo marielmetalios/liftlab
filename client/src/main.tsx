@@ -7,6 +7,7 @@ import Home from './pages/Home.tsx'
 import FormPage from './pages/FormPage.tsx'
 import ErrorPage from './pages/ErrorPage.tsx';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Planner from './pages/Planner.tsx';
 
 
 const router = createBrowserRouter([
@@ -22,7 +23,11 @@ const router = createBrowserRouter([
     {
       path: '/FormPage',
       element: <FormPage />
-    }, 
+    },
+    {
+      path: '/Planner',
+      element: <Planner />
+    }
   ]
 }
 ])
@@ -31,7 +36,7 @@ const rootElement = document.getElementById('root');
 if (rootElement) {
   ReactDOM.createRoot(rootElement).render(<RouterProvider router={router} />);
 }
-  
+
 // createRoot(document.getElementById('root')!).render(
 //   <StrictMode>
 //     <App />
