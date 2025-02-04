@@ -7,11 +7,11 @@ router.get('/', async (_req, res) => {
         const users = await User.findAll({
             attributes: [
                 'id',
-                [Sequelize.col('exercise_id'), 'exerciseId'], // Explicitly rename exercise_id to exerciseId
+                [Sequelize.col('exercise_id'), 'exerciseId'],
                 'isFavorite',
                 'username'
             ],
-            raw: true, // Return raw data to control field names
+            raw: true,
         });
         res.status(200).json(users);
     }
@@ -34,13 +34,11 @@ router.get('/:id', async (req, res) => {
     }
 });
 router.post('/favorite-workout', async (req, res) => {
-    console.log(req.body); // Log the body of the request
+    console.log(req.body);
     const { username, exercise_id, isFavorite } = req.body;
     try {
-        // Check if the user exists, if not, create the user
         let user = await User.findOne({ where: { username } });
         if (!user) {
-            // If exercise_id is provided, associate it, otherwise, don't assign it to the new user
             if (!exercise_id) {
                 return res.status(400).json({ message: 'Exercise ID is required' });
             }
@@ -61,13 +59,11 @@ router.post('/favorite-workout', async (req, res) => {
             where: { username, exercise_id },
         });
         if (existingFavorite) {
-            // If the favorite already exists, update it
             existingFavorite.isFavorite = isFavorite;
             await existingFavorite.save();
             return res.status(200).json({ message: 'Favorite status updated successfully' });
         }
         else {
-            // If no existing favorite, create a new favorite record
             await User.create({
                 username,
                 exercise_id, // Link exercise_id with the user
