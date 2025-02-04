@@ -69,7 +69,7 @@ const Planner = () => {
                         <div className="card" key={workout.id} onClick={() => handleWorkoutClick(workout)}>
                             <h3>{workout.name}</h3>
                             <p>{`Reps x Sets: ${workout.repSets}`}</p>
-                            <p>{`Equipment: ${workout.equipment?.name || "None"}`}</p>
+                            <p>{`Equipment: ${workout.equipment?.equipment || "None"}`}</p>
                         </div>
                     ))
                 ) : (
@@ -86,7 +86,7 @@ const Planner = () => {
                             <button onClick={() => deleteCard(workout)}>Delete workout</button>
                             <h3>{workout.name}</h3>
                             <p>{`Reps x Sets: ${workout.repSets}`}</p>
-                            <p>{`Equipment: ${workout.equipment?.name || "None"}`}</p>
+                            <p>{`Equipment: ${workout.equipment?.equipment || "None"}`}</p>
                         </div>
                     ))
                 ) : (
