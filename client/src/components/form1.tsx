@@ -1,4 +1,6 @@
 import { useState, FormEvent, ChangeEvent} from "react";
+import { useNavigate } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 // we'll useState and start it off as empty string --
 // setMuscleGroup allows muscleGroup state to be updated
@@ -6,7 +8,9 @@ import { useState, FormEvent, ChangeEvent} from "react";
 // initial state is set to empty array - this will eventually pull in our workout table data
 const MuscleGroupForm = () => {
     const [muscleGroup, setMuscleGroup] = useState('');
-    const [workouts, setWorkouts] = useState<{id:number, name: string, repSets: string, equipment: string}[]>([]);
+    const [workouts, setWorkouts] = useState<{id:number, name: string, repSets: string, Equipment: string}[]>([]);
+    const navigate = useNavigate();
+    
 // new function to handle the HTML input change
 // the e.target will look at the HTML element that triggered event and assign it to a new const called "selectedGroup"
 // then we useState to update the setMuscleGroup TO that user's choice (i.e. "selectedGroup")
@@ -27,7 +31,6 @@ if (selectedGroup) {
 
 
 // now we need a function to actually fetch the workouts --
-// MAR - WE NEED TO ADD A ROUTE TO FILTER BY MUSCLE GROUP IN DATABASE, THEN UPDATE AWAIT FETCH TO MATCH URL ROUTE...
 // we need async to wait on fetching the data
 // parameter is the new muscleGroup state (i.e. selected)
 // we
@@ -42,10 +45,13 @@ const fetchWorkouts = async (muscleGroup: string) => {
     }
 };
 
+
 // handleSubmit function that takes the formevent as a parameter (i.e this will be a form submission event)
+// navigate passes workouts as state onto the Planner page
 const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     console.log(`User selected ${muscleGroup}`);
+    navigate('/Planner', { state: { workouts } });
 };
 
 // javascript in curly braces for the return
@@ -54,10 +60,11 @@ const handleSubmit = (e: FormEvent) => {
 // we actually set the select value to the useState muscleGroup variable
 // need to add styling
 return (
-    <form onSubmit={handleSubmit}>
-        <label>Select from the below dropdown:</label>
+    <div> 
+        <form onSubmit={handleSubmit}>
+        <label>Select a muscle group to focus on:</label>
         <select id="muscleGroupName" value={muscleGroup} onChange = {handleChange} role="button">
-            <option value="">Choose a muscle group</option>
+            <option value="">Choose from below options</option>
             <option value="Arms">Arms</option>
             <option value="Legs">Legs</option>
             <option value="Core">Core</option>
@@ -65,28 +72,10 @@ return (
             <option value="Chest">Chest</option>
         </select>
         <button type="submit">Submit</button>
-
-    { workouts.length > 0 && (
-    <div>
-        <h1>Your Workout Options:</h1>
-        <div className = ".container-md">
-             {workouts.map((workout) => (
-                <div className = "card" key={workout.id}>
-                    <h3>{workout.name}</h3>
-                    <p>{`Reps x Sets: ${workout.repSets}`}</p>
-                    <p>{workout.equipment}</p>
-                </div>
-            ))};
-        </div>
+    </form>
     </div>
-    )};
-</form>
-    
-    );
+)
 };
-// we may want to add the click to add to your workout list here as well ^^
-
-{/*got the above return for workouts to actually display on the page from xpert -- dont fully understand ternary here? */}
 
 
 export default MuscleGroupForm;
