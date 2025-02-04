@@ -3,18 +3,20 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Form2() {
   const [muscleGroup, setMuscleGroup] = useState('Arms');
-  const [name, setName] = useState(''); 
-  const [repSets, setRepSets] = useState(''); 
+  const [name, setName] = useState('');
+  const [repSets, setRepSets] = useState('');
   const [message, setMessage] = useState<string>('');
+  const [equipment, setEquipment] = useState('');
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-
+    
     const exerciseData = { muscleGroup, name, repSets };
-
+    console.log('Exercise Data:', exerciseData); 
     try {
-      const response = await fetch('api/exercises/', {
+      
+      const exerciseResponse = await fetch('/api/exercises', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -22,15 +24,40 @@ function Form2() {
         body: JSON.stringify(exerciseData),
       });
 
-      if (response.ok) {
-        const result = await response.json();
-        setMessage(`Exercise added with ID: ${result.id}`);
-      } else {
-        setMessage('Failed to add exercise');
+      if (!exerciseResponse.ok) {
+        throw new Error('Failed to add exercise');
       }
+
+      const exerciseResult = await exerciseResponse.json();
+      console.log('Exercise Result:', exerciseResult); 
+      if (!exerciseResult.id) {
+        setMessage('Failed to create exercise');
+        return;
+      }
+
+      
+      const equipmentDataToSend = { exerciseId: exerciseResult.id, equipment };
+      console.log('Equipment Data:', equipmentDataToSend);  
+
+      
+      const equipmentResponse = await fetch('/api/equipment', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(equipmentDataToSend),
+      });
+
+      if (!equipmentResponse.ok) {
+        throw new Error('Failed to add equipment');
+      }
+
+      const equipmentResult = await equipmentResponse.json();
+      console.log('Equipment Result:', equipmentResult);  
+      setMessage('Exercise and equipment added successfully');
     } catch (error) {
       console.error('Error:', error);
-      setMessage('Error occurred while adding exercise');
+      setMessage('Error occurred while adding data');
     }
   };
 
@@ -48,7 +75,7 @@ function Form2() {
             <option>Arms</option>
             <option>Legs</option>
             <option>Chest</option>
-            <option>Abs</option>
+            <option>Core</option>
             <option>Back</option>
           </select>
         </div>
@@ -74,6 +101,17 @@ function Form2() {
             onChange={(e) => setRepSets(e.target.value)}
           ></textarea>
         </div>
+        <div className="form-group">
+          <label htmlFor="equipmentTextarea">Equipment:</label>
+          <textarea
+            className="form-control"
+            id="equipmentTextarea"
+            rows={1}
+            required
+            value={equipment}
+            onChange={(e) => setEquipment(e.target.value)}
+          ></textarea>
+        </div>
         <button className="btn btn-primary" type="submit">
           Add Workout
         </button>
@@ -82,6 +120,6 @@ function Form2() {
       {message && <p>{message}</p>}
     </div>
   );
-};
+}
 
 export default Form2;

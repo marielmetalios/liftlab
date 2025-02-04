@@ -27,7 +27,7 @@ router.get('/:muscleGroup', async (_req, res) => {
         res.status(500).json({ error: "Internal Server Error" });
     }
 });
-// end new route
+// get route by id 
 router.get('/:id', async (req, res) => {
     try {
         const exercise = await Exercises.findByPk(req.params.id);
@@ -42,15 +42,6 @@ router.get('/:id', async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
-// router.post('/', async (req: Request, res: Response) => {
-//   try {
-//     const newExercise = await Exercises.create(req.body);
-//     res.status(201).json(newExercise);
-//     console.log(`Success`)
-//   } catch (error) {
-//     res.status(500).json({ error: 'Internal Server Error' });
-//   }
-// });
 // POST route for creating a new exercise
 router.post('/', async (req, res) => {
     try {
