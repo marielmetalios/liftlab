@@ -1,6 +1,7 @@
 import { useState, FormEvent, ChangeEvent} from "react";
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { workoutInterface } from "../interfaces/Workouts";
 
 // we'll useState and start it off as empty string --
 // setMuscleGroup allows muscleGroup state to be updated
@@ -8,7 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 // initial state is set to empty array - this will eventually pull in our workout table data
 const MuscleGroupForm = () => {
     const [muscleGroup, setMuscleGroup] = useState('');
-    const [workouts, setWorkouts] = useState<{id:number, name: string, repSets: string, Equipment: string}[]>([]);
+    const [workouts, setWorkouts] = useState<workoutInterface[]>([]);
     const navigate = useNavigate();
     
 // new function to handle the HTML input change
