@@ -15,7 +15,7 @@ router.get('/', async (_req: Request, res: Response) => {
   }
 });
 
-// new route for specfic muscle groups:
+
 router.get('/:muscleGroup', async (_req: Request, res: Response) => {
   try {
     const { muscleGroup } = _req.params;
@@ -30,8 +30,9 @@ router.get('/:muscleGroup', async (_req: Request, res: Response) => {
     res.status(500).json({ error: "Internal Server Error"});
   }
 });
-// end new route
 
+
+// get route by id 
 
 router.get('/:id', async (req: Request, res: Response) => {
   try {

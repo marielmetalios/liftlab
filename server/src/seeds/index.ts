@@ -1,6 +1,6 @@
 import { seedExercises } from './exercise-seeds.js';
 // import { seedUsers } from './user-seeds.js';
-// import { seedEquipment } from './equipment-seeds.js';
+import { seedEquipment } from './equipment-seeds.js';
 import sequelize from '../config/connection.js';
 
 const seedAll = async (): Promise<void> => {
@@ -14,8 +14,8 @@ const seedAll = async (): Promise<void> => {
     // await seedUsers();
     // console.log('\n----- User SEEDED -----\n');
 
-    // await seedEquipment();
-    // console.log('\n----- Equipment SEEDED -----\n');
+    await seedEquipment();
+    console.log('\n----- Equipment SEEDED -----\n');
     
     process.exit(0);
   } catch (error) {
