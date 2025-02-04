@@ -15,7 +15,7 @@
         "build": "cd server && npm run build",
         "seed": "cd server && npm run seed",
         "render-build": "npm install && npm run build",
-        "postdeploy": "psql $DATABASE_URL -c \"SELECT setval('exercises_id_seq', (SELECT MAX(id) FROM exercises), true);\""
+        "postdeploy": "cd server && npm run postdeploy"
     },
     "keywords": [],
     "author": "",
