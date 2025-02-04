@@ -82,6 +82,6 @@ function Form2() {
       {message && <p>{message}</p>}
     </div>
   );
-}
+};
 
 export default Form2;
