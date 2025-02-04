@@ -47,18 +47,6 @@ router.get('/:id', async (req: Request, res: Response) => {
 });
 
 
-// router.post('/', async (req: Request, res: Response) => {
-//   try {
-//     const newExercise = await Exercises.create(req.body);
-//     res.status(201).json(newExercise);
-//     console.log(`Success`)
-//   } catch (error) {
-//     res.status(500).json({ error: 'Internal Server Error' });
-//   }
-// });
-
-
-
 // POST route for creating a new exercise
 router.post('/', async (req: Request, res: Response) => {
   try {
