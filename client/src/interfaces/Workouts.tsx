@@ -7,7 +7,7 @@ export interface workoutInterface {
 
 export type Equipment = {
     id: number;
-    equipment_name: string | null;
+    equipment: string | null;
     exercise_id: number | null;
 };
 

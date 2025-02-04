@@ -1,24 +1,23 @@
 //using useLocation hook access the route's location "state" -- we can retrieve the workout data from another page 
 import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
-import workoutInterface from './interfaces/workoutInterface'
+import { workoutInterface } from '../interfaces/Workouts';
 
-// we'll get the workouts from location state:
 const Planner = () => {
     const location = useLocation();
-// we can get the workouts from location state, optional in case state is undefined...
-// default to an empty array in case no workouts are found 
+// we can get the workouts from location state
+// default to an empty array in case no workouts are found / underfined
     const workouts = location.state?.workouts || [];
 // stores available workouts (retrieved based on user selection)
     const [workoutOptions, setWorkoutOptions] = useState<workoutInterface[]>(workouts);
 // stores list that user selects in their routine
-    const [selectedWorkouts, setSelectedWorkouts] = useState<workoutInterface[]>([]);
+    const [workoutRoutine, setWorkoutRoutine] = useState<workoutInterface[]>([]);
 
     const handleWorkoutClick = (workout: workoutInterface) => {
 // updates available workout list
-        setSelectedWorkouts((prev: workoutInterface[]) => [...prev, workout]);
+        setWorkoutRoutine((prev) => [...prev, workout]);
 // allows the the clicked workout list to be updated
-        setWorkoutOptions((prev : any) => prev.filter((w: any) => w.id !== workout.id));
+        setWorkoutOptions((prev) => prev.filter((w) => w.id !== workout.id));
     };
 
     // mar added optional chaining to get equipment name in
@@ -42,8 +41,8 @@ const Planner = () => {
         
             <div className = "container-md">
             <h2>Your Workout Routine:</h2>
-            {selectedWorkouts.length > 0 ? (
-                    selectedWorkouts.map((workout : any) => (
+            {workoutRoutine.length > 0 ? (
+                    workoutRoutine.map((workout : any) => (
                         <div className="card" key={workout.id}>
                             <h3>{workout.name}</h3>
                             <p>{`Reps x Sets: ${workout.repSets}`}</p>
