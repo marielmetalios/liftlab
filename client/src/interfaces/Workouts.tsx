@@ -18,4 +18,4 @@ export type Exercise = {
     repSets: string;
     equipment?: Equipment | null;
 };
-// optionally chained for Exercise
+// // optionally chained for Exercise

@@ -27,7 +27,7 @@ router.get('/:muscleGroup', async (_req, res) => {
         res.status(500).json({ error: "Internal Server Error" });
     }
 });
-// end new route
+// get route by id 
 router.get('/:id', async (req, res) => {
     try {
         const exercise = await Exercises.findByPk(req.params.id);

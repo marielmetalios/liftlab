@@ -10,6 +10,34 @@ import { DataTypes, Model } from 'sequelize';
 //     public equipment!: string;
 //     public exercise_id!: ForeignKey<Exercises[`id`]>;
 // }
+// export class Equipment extends Model<InferAttributes<Equipment>, InferCreationAttributes<Equipment>> {
+//     declare id: CreationOptional<number>;
+//     declare exercise_id: ForeignKey<Exercises['id']>; 
+//     declare equipment: string;
+// }
+// export function EquipmentFactory(sequelize: Sequelize): typeof Equipment {
+//     Equipment.init(
+//         {
+//             id: {
+//                 type: DataTypes.INTEGER,
+//                 autoIncrement: true,  
+//                 primaryKey: true,     
+//             },
+//             equipment: {
+//                 type: DataTypes.STRING,
+//                 allowNull: true,      
+//             },
+//         },
+//         {
+//             tableName: 'equipment',  
+//             modelName: 'equipment',
+//             underscored: true,
+//             timestamps: false,
+//             sequelize,              
+//         }
+//     );
+//     return Equipment;  
+// }
 export class Equipment extends Model {
 }
 export function EquipmentFactory(sequelize) {
@@ -21,14 +49,22 @@ export function EquipmentFactory(sequelize) {
         },
         equipment: {
             type: DataTypes.STRING,
-            allowNull: true,
+            allowNull: true, // You can set this to false if you want it to be mandatory
+        },
+        exercise_id: {
+            type: DataTypes.INTEGER,
+            allowNull: false, // Change this to false if you want it to be required
+            references: {
+                model: 'exercises', // Reference to the 'exercises' table
+                key: 'id',
+            },
         },
     }, {
         tableName: 'equipment',
         modelName: 'equipment',
         underscored: true,
         timestamps: false,
-        sequelize,
+        sequelize, // The sequelize instance passed here
     });
     return Equipment;
 }
