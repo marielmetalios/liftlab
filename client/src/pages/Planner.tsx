@@ -1,15 +1,19 @@
-import { useLocation } from "react-router-dom";
-import { useState } from "react";
-import workoutInterface from "./interfaces/workoutInterface";
+
+//using useLocation hook access the route's location "state" -- we can retrieve the workout data from another page 
+import { useLocation } from 'react-router-dom';
+import { useState } from 'react';
+import { workoutInterface } from '../interfaces/Workouts';
 
 const Planner = () => {
     const location = useLocation();
+// we can get the workouts from location state
+// default to an empty array in case no workouts are found / underfined
     const workouts = location.state?.workouts || [];
     
     
     const [workoutOptions, setWorkoutOptions] = useState<workoutInterface[]>(workouts);
     const [selectedWorkouts, setSelectedWorkouts] = useState<workoutInterface[]>([]);
-    
+   
 
     
     const handleWorkoutClick = (workout: workoutInterface) => {
@@ -72,7 +76,6 @@ const Planner = () => {
                     <p>No additional exercises available. Feel free to go back and add some to the database.</p>
                 )}
             </div>
-
             <div className="container-md">
                 <h2>Your Workout Routine:</h2>
                 {selectedWorkouts.length > 0 ? (
