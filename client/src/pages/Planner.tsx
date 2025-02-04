@@ -1,53 +1,89 @@
-//using useLocation hook access the route's location "state" -- we can retrieve the workout data from another page 
-import { useLocation } from 'react-router-dom';
-import { useState } from 'react';
-import workoutInterface from './interfaces/workoutInterface'
+import { useLocation } from "react-router-dom";
+import { useState } from "react";
+import workoutInterface from "./interfaces/workoutInterface";
 
-// we'll get the workouts from location state:
 const Planner = () => {
     const location = useLocation();
-// we can get the workouts from location state, optional in case state is undefined...
-// default to an empty array in case no workouts are found 
     const workouts = location.state?.workouts || [];
-// stores available workouts (retrieved based on user selection)
+    
+    
     const [workoutOptions, setWorkoutOptions] = useState<workoutInterface[]>(workouts);
-// stores list that user selects in their routine
     const [selectedWorkouts, setSelectedWorkouts] = useState<workoutInterface[]>([]);
+    
 
+    
     const handleWorkoutClick = (workout: workoutInterface) => {
-// updates available workout list
-        setSelectedWorkouts((prev: workoutInterface[]) => [...prev, workout]);
-// allows the the clicked workout list to be updated
-        setWorkoutOptions((prev : any) => prev.filter((w: any) => w.id !== workout.id));
+        setSelectedWorkouts((prev) => [...prev, workout]);
+        setWorkoutOptions((prev) => prev.filter((w) => w.id !== workout.id));
     };
 
-    // mar added optional chaining to get equipment name in
+   
+    const handleSelectedWorkoutClick = async (workout: workoutInterface) => {
+        const isConfirmed = window.confirm(`Do you want to save ${workout.name} to your routine?`);
+
+        if (!isConfirmed) return;
+
+        const username = localStorage.getItem("username");
+
+        try {
+            const response = await fetch(`api/users/favorite-workout`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    username,
+                    exercise_id: workout.id,
+                    isFavorite: true,
+                }),
+            });
+
+            if (response.ok) {
+                console.log("Workout saved successfully!");
+                
+            } else {
+                console.error("Failed to save workout.");
+            }
+        } catch (error) {
+            console.error("Error sending request:", error);
+        }
+    };
+
+    
+    const [buttonState,setButtonState]= useState("alert alert-secondary");
+
+    const deleteCard = (workout:workoutInterface) => {
+    setSelectedWorkouts((prev) => prev.filter((w) => w.id !== workout.id));
+    };
+
     return (
         <div> 
-            <div className = "container-md">
-            <h2>Your Workout Options:</h2>
-            <p>Click to add to your workout routine</p>
+           
+            <div className="container-md">
+                <h2>Your Workout Options:</h2>
+                <p>Click to add to your workout routine</p>
                 {workoutOptions.length > 0 ? (
-                    workoutOptions.map((workout: any) => (
+                    workoutOptions.map((workout) => (
                         <div className="card" key={workout.id} onClick={() => handleWorkoutClick(workout)}>
                             <h3>{workout.name}</h3>
                             <p>{`Reps x Sets: ${workout.repSets}`}</p>
-                            <p>{`Equipment: ${workout.equipment?.name || 'None'}`}</p>
+                            <p>{`Equipment: ${workout.equipment?.name || "None"}`}</p>
                         </div>
                     ))
                 ) : (
-                    <p>No additional exercises available. Feel free go back and add some to our database.</p>
+                    <p>No additional exercises available. Feel free to go back and add some to the database.</p>
                 )}
             </div>
-        
-            <div className = "container-md">
-            <h2>Your Workout Routine:</h2>
-            {selectedWorkouts.length > 0 ? (
-                    selectedWorkouts.map((workout : any) => (
-                        <div className="card" key={workout.id}>
+
+            <div className="container-md">
+                <h2>Your Workout Routine:</h2>
+                {selectedWorkouts.length > 0 ? (
+                    selectedWorkouts.map((workout) => (
+                        <div className="card" key={workout.id} >
+                            <button onClick={() => handleSelectedWorkoutClick(workout)}>Add to favorites?</button>
+                            <button className={buttonState} onClick={() => setButtonState("alert alert-success")}>Mark as Complete?</button>
+                            <button onClick={() => deleteCard(workout)}>Delete workout</button>
                             <h3>{workout.name}</h3>
                             <p>{`Reps x Sets: ${workout.repSets}`}</p>
-                            <p>{`Equipment: ${workout.equipment?.name || 'None'}`}</p>
+                            <p>{`Equipment: ${workout.equipment?.name || "None"}`}</p>
                         </div>
                     ))
                 ) : (
