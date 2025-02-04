@@ -6,8 +6,7 @@ import { useState, FormEvent, ChangeEvent} from "react";
 // initial state is set to empty array - this will eventually pull in our workout table data
 const MuscleGroupForm = () => {
     const [muscleGroup, setMuscleGroup] = useState('');
-    const [workouts, setWorkouts] = useState<{id:number, name: string}[]>([]);
-
+    const [workouts, setWorkouts] = useState<{id:number, name: string, repSets: string, equipment: string}[]>([]);
 // new function to handle the HTML input change
 // the e.target will look at the HTML element that triggered event and assign it to a new const called "selectedGroup"
 // then we useState to update the setMuscleGroup TO that user's choice (i.e. "selectedGroup")
@@ -56,28 +55,33 @@ const handleSubmit = (e: FormEvent) => {
 // need to add styling
 return (
     <form onSubmit={handleSubmit}>
-        <label>What muscle group do you want to workout today?</label>
-        <select id="muscleGroupName" value={muscleGroup} onChange = {handleChange}>
-            <option value="">Select from the below list</option>
-            <option value="Arm">Arm</option>
-            <option value="Leg">Legs</option>
+        <label>Select from the below dropdown:</label>
+        <select id="muscleGroupName" value={muscleGroup} onChange = {handleChange} role="button">
+            <option value="">Choose a muscle group</option>
+            <option value="Arms">Arms</option>
+            <option value="Legs">Legs</option>
             <option value="Core">Core</option>
             <option value="Back">Back</option>
             <option value="Chest">Chest</option>
         </select>
         <button type="submit">Submit</button>
 
-        {workouts.length > 0 && (
-            <div>
-                <h1>Your Workout Options:</h1>
-                    <ul>
-                     {workouts.map((workout) => (
-                        <li key={workout.id}>{workout.name}</li>
-                    ))}
-                    </ul>
-            </div>
-        )}
-    </form>
+    { workouts.length > 0 && (
+    <div>
+        <h1>Your Workout Options:</h1>
+        <div className = ".container-md">
+             {workouts.map((workout) => (
+                <div className = "card" key={workout.id}>
+                    <h3>{workout.name}</h3>
+                    <p>{`Reps x Sets: ${workout.repSets}`}</p>
+                    <p>{workout.equipment}</p>
+                </div>
+            ))};
+        </div>
+    </div>
+    )};
+</form>
+    
     );
 };
 // we may want to add the click to add to your workout list here as well ^^

@@ -47,15 +47,45 @@ router.get('/:id', async (req: Request, res: Response) => {
 });
 
 
+// router.post('/', async (req: Request, res: Response) => {
+//   try {
+//     const newExercise = await Exercises.create(req.body);
+//     res.status(201).json(newExercise);
+//     console.log(`Success`)
+//   } catch (error) {
+//     res.status(500).json({ error: 'Internal Server Error' });
+//   }
+// });
+
+
+
+// POST route for creating a new exercise
 router.post('/', async (req: Request, res: Response) => {
   try {
-    const newExercise = await Exercises.create(req.body);
-    res.status(201).json(newExercise);
-    console.log(`Success`)
+    const { muscleGroup, name, repSets } = req.body;
+
+    
+    if (!repSets || !repSets.includes('x')) {
+      return res.status(400).json({ error: 'Invalid reps x sets format. Expected format: "4x5"' });
+    }
+
+    
+    const newExercise = await Exercises.create({
+      muscleGroup,
+      name,
+      repSets, 
+    });
+
+    
+    return res.status(201).json(newExercise); 
   } catch (error) {
-    res.status(500).json({ error: 'Internal Server Error' });
+    console.error(error);
+    return res.status(500).json({ error: 'Internal Server Error' }); 
   }
 });
+
+
+
 
 
 export { router as exerciseRouter };

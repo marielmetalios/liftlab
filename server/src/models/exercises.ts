@@ -49,7 +49,7 @@ export function ExerciseFactory(sequelize: Sequelize): typeof Exercises {
               
             },
             repSets: {
-                type: DataTypes.TEXT,
+                type: DataTypes.STRING,
                 allowNull: false,     
             },
 

@@ -7,7 +7,7 @@ const FormPage = () => {
       <div>
         <h1>Your Workouts</h1>
         <MuscleGroupForm />
-        <h1>Add Workout</h1>
+        <h1>Add a workout</h1>
         <Form2 />
       </div>
     );
