@@ -1,16 +1,17 @@
 import MuscleGroupForm from "../components/form1";
-import Form2 from "../components/form2";
+import UserWorkout from "../components/form2";
 
-
-const FormPage = () => {
+const formPage = () => {
     return (
       <div>
-        <h1>Your Workouts</h1>
+        <h1>Get a Workout</h1>
         <MuscleGroupForm />
-        <h1>Add a workout</h1>
-        <Form2 />
+        <div>
+        <h1>Add a Workout</h1>
+        <UserWorkout />
+        </div>
       </div>
     );
   }
 
-  export default FormPage;
+  export default formPage

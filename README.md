@@ -1,3 +1,30 @@
+# <LiftLab>
+
+https://github.com/marielmetalios/liftlab
+
+## Description
+
+This website was created with the intent to simplify daily workouts. Users can sign in with a username, select a muscle group they want to focus on, and our we provide a variety of workouts generated as cards associated with that muscle group, which are stored and pulled from our postgresSQL database. From there, each card can be clicked to be added to a "routine". Users also have the option to add workouts to our database, in the case that they would like to add their personal workouts to their custom routine as well. This project was built for mostly academic purposes as we progress in our software development bootcamp. The core of this project is built with Vite, Typescript, Express, and React. 
+
+## Installation
+
+N/A
+
+## Usage
+
+## Credits
+
+Collaborators
+    - Mariel Metalios
+    - Oscar Oh
+    - Chad W Broome
+
+## License
+
+MIT License
+
+Copyright (c) [2025]
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
