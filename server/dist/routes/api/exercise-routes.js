@@ -11,7 +11,6 @@ router.get('/', async (_req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
-// new route for specfic muscle groups:
 router.get('/:muscleGroup', async (_req, res) => {
     try {
         const { muscleGroup } = _req.params;

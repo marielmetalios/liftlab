@@ -23,16 +23,13 @@ router.post('/', async (req, res) => {
         if (!exercise) {
             return res.status(404).json({ error: 'Exercise not found' });
         }
-        // Create the new equipment record
         const newEquipment = await Equipment.create({
             exercise_id: exerciseId,
             equipment,
         });
-        // Return the newly created equipment as a response
         return res.status(201).json(newEquipment);
     }
     catch (error) {
-        // Log any errors that occur during the creation process
         console.error('Error creating equipment:', error);
         return res.status(500).json({ error: 'Failed to create equipment' });
     }
