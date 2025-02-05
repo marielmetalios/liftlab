@@ -72,11 +72,22 @@ return (
             <option value="Back">Back</option>
             <option value="Chest">Chest</option>
         </select>
-        <button type="submit">Submit</button>
+        <div>
+        <button style={{
+            padding: '5px',
+            fontSize: "12px",
+            border: '1px solid #D3D3D3',
+            width: '100px',
+            margin: '5px',
+            borderRadius: '8px'
+            }}
+            type="submit">Submit</button>
+        </div>
     </form>
     </div>
 )
 };
+
 
 
 export default MuscleGroupForm;
