@@ -3,8 +3,7 @@
 import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import { workoutInterface } from '../interfaces/Workouts';
-import Confetti from "react-confetti";
-import { useWindowSize } from "react-use";
+
 
 const Planner = () => {
     const location = useLocation();
@@ -86,11 +85,11 @@ const Planner = () => {
                 {selectedWorkouts.length > 0 ? (
                     selectedWorkouts.map((workout) => (
                         <div className="card" key={workout.id} >
+                            <h3>{workout.name}</h3>
+                            <p>{`Reps x Sets: ${workout.repSets}`}</p>
                             <button onClick={() => handleSelectedWorkoutClick(workout)}>Add to favorites?</button>
                             <button className={buttonState} onClick={() => setButtonState("alert alert-success")}>Mark as Complete?</button>
                             <button onClick={() => deleteCard(workout)}>Delete workout</button>
-                            <h3>{workout.name}</h3>
-                            <p>{`Reps x Sets: ${workout.repSets}`}</p>
                             {/* <p>{`Equipment: ${workout.equipment?.equipment || "None"}`}</p> */}
                         </div>
                     ))
