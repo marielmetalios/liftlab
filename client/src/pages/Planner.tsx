@@ -52,11 +52,8 @@ const Planner = () => {
         }
     };
 
-    
     const [buttonState,setButtonState]= useState("alert alert-secondary");
     
-  
-
     const deleteCard = (workout:workoutInterface) => {
     setSelectedWorkouts((prev) => prev.filter((w) => w.id !== workout.id));
     };
@@ -88,6 +85,16 @@ const Planner = () => {
             </div>
             <div className="container-md" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <h2>Your Workout Routine:</h2>
+                <button
+                            style={{
+                                padding: '5px',
+                                fontSize: "12px",
+                                border: '1px solid #D3D3D3',
+                                width: '200px',
+                                margin: '5px',
+                                borderRadius: '8px'
+                            }}
+                            className={buttonState} onClick={() => setButtonState("alert alert-success")}>Mark as Complete?</button>
                 {selectedWorkouts.length > 0 ? (
                     selectedWorkouts.map((workout) => (
                         <div className="card"
@@ -121,22 +128,12 @@ const Planner = () => {
                                 width: '100px',
                                 margin: '5px',
                                 borderRadius: '8px'
-                            }}
-                            className={buttonState} onClick={() => setButtonState("alert alert-success")}>Mark as Complete?</button>
-                        <button
-                            style={{
-                                padding: '5px',
-                                fontSize: "12px",
-                                border: '1px solid #D3D3D3',
-                                width: '100px',
-                                margin: '5px',
-                                borderRadius: '8px'
                             }}                            
                             onClick={() => deleteCard(workout)}>Delete workout</button>
                         </div>
                     ))
                 ) : (
-                    <p>Please select a workout.</p>
+                    <p>Please select a workout from your options</p>
                 )}
             </div>
             </div>
