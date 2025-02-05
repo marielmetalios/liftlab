@@ -3,6 +3,8 @@
 import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import { workoutInterface } from '../interfaces/Workouts';
+import Confetti from "react-confetti";
+import { useWindowSize } from "react-use";
 
 const Planner = () => {
     const location = useLocation();
@@ -53,6 +55,8 @@ const Planner = () => {
 
     
     const [buttonState,setButtonState]= useState("alert alert-secondary");
+    
+  
 
     const deleteCard = (workout:workoutInterface) => {
     setSelectedWorkouts((prev) => prev.filter((w) => w.id !== workout.id));
@@ -60,6 +64,7 @@ const Planner = () => {
 
     return (
         <div> 
+            
            
             <div className="container-md">
                 <h2>Your Workout Options:</h2>
@@ -69,7 +74,7 @@ const Planner = () => {
                         <div className="card" key={workout.id} onClick={() => handleWorkoutClick(workout)}>
                             <h3>{workout.name}</h3>
                             <p>{`Reps x Sets: ${workout.repSets}`}</p>
-                            <p>{`Equipment: ${workout.equipment?.equipment || "None"}`}</p>
+                            {/* <p>{`Equipment: ${workout.equipment?.equipment || "None"}`}</p> */}
                         </div>
                     ))
                 ) : (
@@ -86,7 +91,7 @@ const Planner = () => {
                             <button onClick={() => deleteCard(workout)}>Delete workout</button>
                             <h3>{workout.name}</h3>
                             <p>{`Reps x Sets: ${workout.repSets}`}</p>
-                            <p>{`Equipment: ${workout.equipment?.equipment || "None"}`}</p>
+                            {/* <p>{`Equipment: ${workout.equipment?.equipment || "None"}`}</p> */}
                         </div>
                     ))
                 ) : (
