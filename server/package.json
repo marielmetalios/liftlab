@@ -10,7 +10,7 @@
     "dev": "npx nodemon",
     "test": "echo \"Error: no test specified\" && exit 1",
     "seed": "node dist/seeds/index.js",
-    "postdeploy": "node -e \"require('dotenv').config(); const { Sequelize } = require('sequelize'); const sequelize = new Sequelize(process.env.DB_URL ? process.env.DB_URL : process.env.DB_NAME, process.env.DB_URL ? undefined : process.env.DB_USER, process.env.DB_URL ? undefined : process.env.DB_PASSWORD, { host: process.env.DB_URL ? undefined : process.env.DB_HOST, dialect: 'postgres' }); sequelize.query('SELECT setval((SELECT pg_get_serial_sequence(\\'exercises\\', \\'id\\')), (SELECT COALESCE(MAX(id), 1) FROM exercises), true);').then(() => { console.log('Sequence reset!'); sequelize.close(); }).catch(err => { console.error('Error resetting sequence:', err); sequelize.close(); });\""
+    "postdeploy":"node -e \"require('dotenv').config(); const { Sequelize } = require('sequelize'); const sequelize = new Sequelize(process.env.DB_URL ? process.env.DB_URL : process.env.DB_NAME, process.env.DB_URL ? undefined : process.env.DB_USER, process.env.DB_URL ? undefined : process.env.DB_PASSWORD, { host: process.env.DB_URL ? undefined : process.env.DB_HOST, dialect: 'postgres' }); Promise.all([sequelize.query('SELECT setval((SELECT pg_get_serial_sequence(\\'exercises\\', \\'id\\')), (SELECT COALESCE(MAX(id), 1) FROM exercises), true);'), sequelize.query('SELECT setval((SELECT pg_get_serial_sequence(\\'equipment\\', \\'id\\')), (SELECT COALESCE(MAX(id), 1) FROM equipment), true);')]).then(() => { console.log('Sequences reset!'); sequelize.close(); }).catch(err => { console.error('Error resetting sequences:', err); sequelize.close(); });\""
   },
   "nodemonConfig": {
     "watch": [
