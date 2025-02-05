@@ -16,7 +16,7 @@ function Form2() {
     console.log('Exercise Data:', exerciseData); 
     try {
       
-      const exerciseResponse = await fetch('/api/exercises', {
+      const exerciseResponse = await fetch('/api/exercises/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -40,7 +40,7 @@ function Form2() {
       console.log('Equipment Data:', equipmentDataToSend);  
 
       
-      const equipmentResponse = await fetch('/api/equipment', {
+      const equipmentResponse = await fetch('/api/equipment/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
