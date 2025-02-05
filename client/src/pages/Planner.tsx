@@ -3,8 +3,7 @@
 import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import { workoutInterface } from '../interfaces/Workouts';
-import Confetti from "react-confetti";
-import { useWindowSize } from "react-use";
+
 
 const Planner = () => {
     const location = useLocation();
