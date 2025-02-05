@@ -24,9 +24,7 @@ function Form2() {
         body: JSON.stringify(exerciseData),
       });
 
-      if (!exerciseResponse.ok) {
-        throw new Error('Failed to add exercise');
-      }
+     
 
       const exerciseResult = await exerciseResponse.json();
       console.log('Exercise Result:', exerciseResult); 
