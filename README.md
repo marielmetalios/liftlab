@@ -17,6 +17,7 @@ N/A
 ## Credits
 We used a number of external resources for assitance during this project: Xpert (Columbia EdX) / ChatGPT / Stackoverflow
 
+Deployed through: Render
 Frontend: Vite, React, TypeScript
 Backend: Express, PostgreSQL
 
