@@ -11,12 +11,12 @@ function Form2() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    
     const exerciseData = { muscleGroup, name, repSets };
-    console.log('Exercise Data:', exerciseData); 
+    console.log('Exercise Data:', exerciseData);
+
     try {
       
-      const exerciseResponse = await fetch('/api/exercises/', {
+      const exerciseResponse = await fetch('https://lift-lab.onrender.com/api/exercises/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -24,21 +24,19 @@ function Form2() {
         body: JSON.stringify(exerciseData),
       });
 
-     
-
       const exerciseResult = await exerciseResponse.json();
-      console.log('Exercise Result:', exerciseResult); 
+      console.log('Exercise Result:', exerciseResult);
+
       if (!exerciseResult.id) {
         setMessage('Failed to create exercise');
         return;
       }
 
-      
       const equipmentDataToSend = { exerciseId: exerciseResult.id, equipment };
-      console.log('Equipment Data:', equipmentDataToSend);  
+      console.log('Equipment Data:', equipmentDataToSend);
 
-      
-      const equipmentResponse = await fetch('/api/equipment/', {
+      // Send equipment data to the API with the external base URL
+      const equipmentResponse = await fetch('https://lift-lab.onrender.com/api/equipment/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -51,7 +49,7 @@ function Form2() {
       }
 
       const equipmentResult = await equipmentResponse.json();
-      console.log('Equipment Result:', equipmentResult);  
+      console.log('Equipment Result:', equipmentResult);
       setMessage('Exercise and equipment added successfully');
     } catch (error) {
       console.error('Error:', error);
