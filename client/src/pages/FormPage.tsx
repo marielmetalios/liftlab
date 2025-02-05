@@ -1,13 +1,13 @@
 import MuscleGroupForm from "../components/form1";
 import UserWorkout from "../components/form2";
-import { useWindowSize } from 'react-use'
-import Confetti from 'react-confetti'
+// import { useWindowSize } from 'react-use'
+// import Confetti from 'react-confetti'
 
 const formPage = () => {
-  const {width, height} =useWindowSize()
+  // const {width, height} =useWindowSize()
     return (
       <div className="container">
-               <Confetti
+               {/* <Confetti
       width={width}
       height={height}
       recycle={false}
@@ -23,14 +23,14 @@ const formPage = () => {
         ctx.stroke()
         ctx.closePath()
       }}
-    />
+    /> */}
         <div className="row">
           <div className="col-md-6">
-            <h1>Get a Workout</h1>
+            <h2>Get Your Workouts</h2>
             <MuscleGroupForm />
           </div>
         <div className="col-md-6">
-            <h1>Log a Workout</h1>
+            <h2>Add a Workout</h2>
             <UserWorkout />
         </div>
       </div>
