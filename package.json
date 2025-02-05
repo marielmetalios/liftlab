@@ -26,6 +26,6 @@
         "wait-on": "^7.2.0"
     },
     "dependencies": {
-        "success-motivational-quotes": "^1.0.8"
+        "quote-lib": "^2.0.1"
     }
 }
