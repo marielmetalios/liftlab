@@ -62,16 +62,22 @@ const Planner = () => {
     };
 
     return (
-        <div> 
-            
-           
-            <div className="container-md">
-                <h2>Your Workout Options:</h2>
+        <div>
+        <div className = "flex-container" style={{ display: 'flex', gap: '30px', marginTop: '80px' }}> 
+            <div className="container-md" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <h2 >Your Workout Options:</h2>
                 <p>Click to add to your workout routine</p>
                 {workoutOptions.length > 0 ? (
                     workoutOptions.map((workout) => (
-                        <div className="card" key={workout.id} onClick={() => handleWorkoutClick(workout)}>
-                            <h3>{workout.name}</h3>
+                        <div className="card" 
+                        style={{ 
+                            width: '200px', 
+                            padding: '10px', 
+                            border: '1px solid #D3D3D3',
+                            borderRadius: '8px',
+                            margin: '5px' }}
+                        key={workout.id} onClick={() => handleWorkoutClick(workout)}>
+                            <h3 style ={{fontSize: '20px'}}>{workout.name}</h3>
                             <p>{`Reps x Sets: ${workout.repSets}`}</p>
                             {/* <p>{`Equipment: ${workout.equipment?.equipment || "None"}`}</p> */}
                         </div>
@@ -80,22 +86,59 @@ const Planner = () => {
                     <p>No additional exercises available. Feel free to go back and add some to the database.</p>
                 )}
             </div>
-            <div className="container-md">
+            <div className="container-md" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <h2>Your Workout Routine:</h2>
                 {selectedWorkouts.length > 0 ? (
                     selectedWorkouts.map((workout) => (
-                        <div className="card" key={workout.id} >
-                            <button onClick={() => handleSelectedWorkoutClick(workout)}>Add to favorites?</button>
-                            <button className={buttonState} onClick={() => setButtonState("alert alert-success")}>Mark as Complete?</button>
-                            <button onClick={() => deleteCard(workout)}>Delete workout</button>
-                            <h3>{workout.name}</h3>
-                            <p>{`Reps x Sets: ${workout.repSets}`}</p>
+                        <div className="card"
+                        style={{ 
+                        display: 'block',
+                        width: '200px', 
+                        padding: '10px', 
+                        border: '1px solid #D3D3D3', 
+                        borderRadius: '8px', 
+                        margin: '5px' 
+                        }} 
+                        key={workout.id} >
+                        <h3 style ={{fontSize: '20px'}} >{workout.name}</h3>
+                        <p>{`Reps x Sets: ${workout.repSets}`}</p>
                             {/* <p>{`Equipment: ${workout.equipment?.equipment || "None"}`}</p> */}
+                        <button 
+                            style={{
+                                padding: '5px',
+                                fontSize: "12px",
+                                border: '1px solid #D3D3D3',
+                                width: '100px',
+                                margin: '5px',
+                                borderRadius: '8px'
+                            }}
+                            onClick={() => handleSelectedWorkoutClick(workout)}>Add to favorites?</button>
+                        <button
+                            style={{
+                                padding: '5px',
+                                fontSize: "12px",
+                                border: '1px solid #D3D3D3',
+                                width: '100px',
+                                margin: '5px',
+                                borderRadius: '8px'
+                            }}
+                            className={buttonState} onClick={() => setButtonState("alert alert-success")}>Mark as Complete?</button>
+                        <button
+                            style={{
+                                padding: '5px',
+                                fontSize: "12px",
+                                border: '1px solid #D3D3D3',
+                                width: '100px',
+                                margin: '5px',
+                                borderRadius: '8px'
+                            }}                            
+                            onClick={() => deleteCard(workout)}>Delete workout</button>
                         </div>
                     ))
                 ) : (
-                    <p>No workouts selected.</p>
+                    <p>Please select a workout.</p>
                 )}
+            </div>
             </div>
         </div>
     );
